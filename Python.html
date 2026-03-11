@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Python Copy on GitHub Pages</title>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
+</head>
+<body>
+  <h1>Python on GitHub Pages!</h1>
+  <button id="run">Run Python</button>
+  <pre id="output"></pre>
+
+  <script>
+    async function main() {
+      const pyodide = await loadPyodide();
+      document.getElementById("run").onclick = async () => {
+        const pythonCode = `
+def greet(name):
+    return f"Hello, {name}!"
+
+print(greet("GitHub Pages User"))
+`;
+        const output = await pyodide.runPythonAsync(pythonCode);
+        document.getElementById("output").textContent = pyodide.globals.get("print") || "";
+      };
+    }
+    main();
+  </script>
+</body>
+</html>
